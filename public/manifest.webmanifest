@@ -1,0 +1,17 @@
+{
+  "name": "COE Academy Sessions: Microsoft Power Automate",
+  "short_name": "COE Power Automate",
+  "description": "Interactive presentation for Power Automate workshop at Amadeus Finance Operations",
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#1e293b",
+  "theme_color": "#7c3aed",
+  "icons": [
+    {
+      "src": "/images/coe_color_logo.png",
+      "sizes": "any",
+      "type": "image/png"
+    }
+  ]
+}
