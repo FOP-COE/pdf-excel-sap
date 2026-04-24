@@ -34,6 +34,29 @@ jobs:
       - name: Build site
         run: npm run build
 
+      - name: Create 404.html for SPA routing
+        run: |
+          cat > dist/404.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="es">
+          <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>Finance AI Series #7 – From PDF into Excel into SAP</title>
+              <script>
+                  var path = window.location.pathname.replace('/pdf-excel-sap', '');
+                  if (path !== '/') {
+                      window.location.replace('/pdf-excel-sap/?path=' + encodeURIComponent(path) + window.location.search);
+                  }
+              </script>
+          </head>
+          <body><p>Redirecting...</p></body>
+          </html>
+          EOF
+
+      - name: Create .nojekyll
+        run: touch dist/.nojekyll
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
