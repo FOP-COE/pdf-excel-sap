@@ -6,58 +6,64 @@ on:
       - main
   workflow_dispatch:
 
- permissions:
-   contents: write
-   pages: write
-   id-token: write
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
- jobs:
-   build-and-deploy:
-     runs-on: ubuntu-latest
-     steps:
-       - name: Checkout
-         uses: actions/checkout@v4
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-       - name: Setup Node
-         uses: actions/setup-node@v4
-         with:
-           node-version: 20
-           cache: npm
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
 
-       - name: Install dependencies
-         run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-       - name: Build site
-         run: npm run build
+      - name: Build site
+        run: npm run build
 
-       - name: Create 404.html for SPA routing
-         run: |
-           cat > dist/404.html << 'EOF'
-           <!DOCTYPE html>
-           <html lang="es">
-           <head>
-               <meta charset="UTF-8" />
-               <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-               <title>Finance AI Series #7 – From PDF into Excel into SAP</title>
-               <script>
-                   var path = window.location.pathname.replace('/pdf-excel-sap', '');
-                   if (path !== '/') {
-                       window.location.replace('/pdf-excel-sap/?path=' + encodeURIComponent(path) + window.location.search);
-                   }
-               </script>
-           </head>
-           <body><p>Redirecting...</p></body>
-           </html>
-           EOF
+      - name: Create route entry points for GitHub Pages
+        run: |
+          mkdir -p dist/introduction dist/use-case
+          cp dist/index.html dist/introduction/index.html
+          cp dist/index.html dist/use-case/index.html
 
-       - name: Create .nojekyll
-         run: touch dist/.nojekyll
+      - name: Create 404.html for SPA routing
+        run: |
+          cat > dist/404.html << 'EOF'
+          <!DOCTYPE html>
+          <html lang="es">
+          <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <title>Finance AI Series #7 - From PDF into Excel into SAP</title>
+              <script>
+                  var path = window.location.pathname.replace('/pdf-excel-sap', '');
+                  if (path !== '/') {
+                      window.location.replace('/pdf-excel-sap/?path=' + encodeURIComponent(path) + window.location.search);
+                  }
+              </script>
+          </head>
+          <body><p>Redirecting...</p></body>
+          </html>
+          EOF
 
-       - name: Upload pages artifact
-         uses: actions/upload-pages-artifact@v3
-         with:
-           path: ./dist
+      - name: Create .nojekyll
+        run: touch dist/.nojekyll
 
-       - name: Deploy to GitHub Pages
-         id: deployment
-         uses: actions/deploy-pages@v4
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
