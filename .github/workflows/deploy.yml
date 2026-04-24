@@ -6,51 +6,58 @@ on:
       - main
   workflow_dispatch:
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+ permissions:
+   contents: write
+   pages: write
+   id-token: write
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
+ jobs:
+   build-and-deploy:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Checkout
+         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: npm ci
+       - name: Setup Node
+         uses: actions/setup-node@v4
+         with:
+           node-version: 20
+           cache: npm
 
-      - name: Build site
-        run: npm run build
+       - name: Install dependencies
+         run: npm ci
 
-      - name: Create 404.html for SPA routing
-        run: |
-          cat > dist/404.html << 'EOF'
-          <!DOCTYPE html>
-          <html lang="es">
-          <head>
-              <meta charset="UTF-8" />
-              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-              <title>Finance AI Series #7 – From PDF into Excel into SAP</title>
-              <script>
-                  var path = window.location.pathname.replace('/pdf-excel-sap', '');
-                  if (path !== '/') {
-                      window.location.replace('/pdf-excel-sap/?path=' + encodeURIComponent(path) + window.location.search);
-                  }
-              </script>
-          </head>
-          <body><p>Redirecting...</p></body>
-          </html>
-          EOF
+       - name: Build site
+         run: npm run build
 
-      - name: Create .nojekyll
-        run: touch dist/.nojekyll
+       - name: Create 404.html for SPA routing
+         run: |
+           cat > dist/404.html << 'EOF'
+           <!DOCTYPE html>
+           <html lang="es">
+           <head>
+               <meta charset="UTF-8" />
+               <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+               <title>Finance AI Series #7 – From PDF into Excel into SAP</title>
+               <script>
+                   var path = window.location.pathname.replace('/pdf-excel-sap', '');
+                   if (path !== '/') {
+                       window.location.replace('/pdf-excel-sap/?path=' + encodeURIComponent(path) + window.location.search);
+                   }
+               </script>
+           </head>
+           <body><p>Redirecting...</p></body>
+           </html>
+           EOF
 
-      - name: Deploy to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          force_orphan: true
+       - name: Create .nojekyll
+         run: touch dist/.nojekyll
+
+       - name: Upload pages artifact
+         uses: actions/upload-pages-artifact@v3
+         with:
+           path: ./dist
+
+       - name: Deploy to GitHub Pages
+         id: deployment
+         uses: actions/deploy-pages@v4
