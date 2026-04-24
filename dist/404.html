@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Finance AI Series #7 – From PDF into Excel into SAP</title>
     <script>
-        // GitHub Pages SPA redirect: all 404s go to index.html which handles routing
-        window.location.replace('/pdf-excel-sap/index.html' + (window.location.pathname + window.location.search));
+        // GitHub Pages SPA redirect: capture the path and redirect to index.html with path in hash
+        // This allows React Router to handle client-side routing
+        var path = window.location.pathname.replace('/pdf-excel-sap', '');
+        if (path !== '/') {
+            window.location.replace('/pdf-excel-sap/?path=' + encodeURIComponent(path) + window.location.search);
+        }
     </script>
 </head>
 <body>
