@@ -38,13 +38,14 @@ export const sections: SectionConfig[] = [
   },
   {
     id: 'reality',
-    title: 'The Finance Reality',
-    subtitle: 'Unstructured PDFs and manual entry bottlenecks.',
+    title: 'Finance Automation Is Not Optional Anymore',
+    subtitle: 'PDF-to-Excel handoffs and manual SAP bottlenecks.',
     durationMinutes: 8,
     presenterNotes: [
-      'Start with the current manual process and error risk.',
+      'Frame the flow as PDF to Excel to SAP, independent of one specific document origin.',
+      'Focus on manual work in the middle: extraction, validation, and handoff formatting.',
       'Quantify impact in cycle time, rework, and data quality.',
-      'Position automation as structure-first, not just speed-first.'
+      'Position automation as structure-first, including script-based SAP follow-up tasks.'
     ],
     analyticsKey: 'section_reality',
     component: RealitySection
@@ -91,13 +92,13 @@ export const sections: SectionConfig[] = [
   },
   {
     id: 'advanced',
-    title: 'Production Readiness and Q&A',
-    subtitle: 'Governance, local SAP enrichment controls, and next steps',
+    title: 'Setting Up for the Live Build',
+    subtitle: 'SAP enrichment pattern, controls, and transition to walkthrough',
     durationMinutes: 10,
     presenterNotes: [
-      'Cover quality controls, validation rules, and exception handling.',
-      'Describe the SAP dry-run handoff approach and boundaries.',
-      'Close with reusable template guidance and open questions.'
+      'Explain the SAP VBA enrichment layer as read-only preparation, not production posting.',
+      'Define safety boundaries, validation checks, and expected outputs before live build.',
+      'Transition clearly to the use-case walkthrough and reserve final Q&A for closing.'
     ],
     analyticsKey: 'section_advanced',
     component: AdvancedSection

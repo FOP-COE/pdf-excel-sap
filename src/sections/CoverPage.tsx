@@ -55,13 +55,6 @@ export const CoverPage = ({ resetSignal }: SectionProps) => {
 
       {/* Step 1: Branding and Confidential - Fixed positions */}
       <StepReveal step={0} isVisible={stepController.isStepVisible(0)} direction="fade">
-        <div className="absolute left-6 top-6 z-10">
-          <img
-            src={logos.coeWhite}
-            alt="Center of Excellence"
-            className="h-16 w-auto"
-          />
-        </div>
         <div className="absolute right-6 top-6 flex items-center gap-2 z-10">
           <span className="text-sm font-medium uppercase tracking-wide text-orange-400">CONFIDENTIAL</span>
           <div className="h-6 w-6 rounded-full border-2 border-white/30 bg-white/10 flex items-center justify-center">

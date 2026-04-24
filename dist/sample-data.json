@@ -1,0 +1,21 @@
+{
+  "testimonials": [
+    {
+      "name": "Ana Pérez",
+      "role": "Finance Transformation Lead",
+      "quote": "Integramos SAP con Teams y hemos ahorrado 120 horas mensuales."
+    }
+  ],
+  "successStories": [
+    {
+      "company": "Amadeus BU",
+      "metric": "85% menos tiempo en conciliaciones",
+      "description": "Automatización de conciliaciones con Excel, SharePoint y Power Automate."
+    }
+  ],
+  "roiDefaults": {
+    "approvalsPerWeek": 40,
+    "minutesPerApproval": 25,
+    "hourlyRate": 60
+  }
+}

@@ -6,19 +6,19 @@ import { ArrowRight, Bot, Database, Workflow } from 'lucide-react';
 
 const momentumBlocks = [
   {
-    title: 'Low-Code Adoption',
-    subtitle: 'Teams are ready to automate',
-    detail: 'Power Platform is already known by operations teams, making this use case immediately actionable.'
+    title: 'Leverage Existing Ecosystem',
+    subtitle: 'Already adopted by finance teams',
+    detail: 'Power Platform is already part of our Microsoft ecosystem, enabling fast adoption and immediate value for this use case.'
   },
   {
     title: 'AI Builder Maturity',
-    subtitle: 'Document extraction at scale',
-    detail: 'Invoice field extraction can now be modeled and reused across multiple layouts with confidence scoring.'
+    subtitle: 'Reusable document extraction',
+    detail: 'Invoice field extraction can now be modelled once and reused across formats and layouts with confidence scoring.'
   },
   {
     title: 'Operational Fit',
-    subtitle: 'Excel and SAP handoff patterns exist',
-    detail: 'Structured table outputs align with how finance teams validate and hand over data today.'
+    subtitle: 'Aligned with daily finance operations',
+    detail: 'Structured table outputs match how finance teams validate data today before re-using it in SAP.'
   }
 ];
 
@@ -42,7 +42,7 @@ export const AutomationMomentum = ({ resetSignal }: SectionProps) => {
           <div className="mb-10 text-center">
             <h1 className="font-amadeus text-5xl font-bold">Why This Is the Right Moment</h1>
             <p className="mx-auto mt-4 max-w-3xl text-lg text-slate-200">
-              We are not starting from zero. The stack is available, teams are familiar with the tools, and this use case has immediate business value.
+              The tools are already in place. The process already exists. What's missing is automation.
             </p>
           </div>
         </StepReveal>
@@ -62,7 +62,7 @@ export const AutomationMomentum = ({ resetSignal }: SectionProps) => {
           </div>
 
           <div className="mt-8 text-center text-sm text-indigo-200">
-            Next: we turn this momentum into a concrete architecture and live build.
+            Next: we turn this into a concrete flow and build it step by step.
             <ArrowRight className="ml-2 inline" size={14} />
           </div>
         </StepReveal>

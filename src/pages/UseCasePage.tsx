@@ -6,6 +6,7 @@ import {
   ChevronRight,
   Clock3,
   Database,
+  Download,
   Expand,
   FileText,
   ListChecks,
@@ -244,6 +245,70 @@ export const UseCasePage = () => {
   const activeLightboxShot = activeLightboxStep ? activeLightboxStep.screenshots[activeLightboxIndex] : null;
   const stepIds = useMemo(() => workshopSteps.map((step) => step.id), []);
 
+  const exportStepsPdf = () => {
+    const popup = window.open('', '_blank');
+    if (!popup) {
+      return;
+    }
+
+    const toAbsoluteImageUrl = (src: string) => {
+      const normalized = src.startsWith('/') ? src.slice(1) : src;
+      return new URL(`${import.meta.env.BASE_URL}${normalized}`, window.location.origin).toString();
+    };
+
+    const stepPages = workshopSteps
+      .map((step, index) => {
+        const mainShot = step.screenshots[0];
+        const imageHtml = mainShot
+          ? `<img class="shot" src="${toAbsoluteImageUrl(mainShot.src)}" alt="${mainShot.caption}" />
+             <p class="caption">${mainShot.caption}</p>`
+          : '';
+
+        const actionsHtml = step.actions.map((action) => `<li>${action}</li>`).join('');
+
+        return `
+          <section class="pdf-step">
+            <div class="badge">Step ${index + 1}</div>
+            <h2>${step.title}</h2>
+            <p class="objective"><strong>Objective:</strong> ${step.objective}</p>
+            <ul>${actionsHtml}</ul>
+            ${step.criticalNote ? `<p class="note"><strong>Important:</strong> ${step.criticalNote}</p>` : ''}
+            ${imageHtml}
+          </section>
+        `;
+      })
+      .join('');
+
+    popup.document.write(`<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>COE-5024 Workshop Steps PDF</title>
+    <style>
+      @page { size: A4 portrait; margin: 14mm; }
+      * { box-sizing: border-box; }
+      body { font-family: "Segoe UI", Arial, sans-serif; color: #0f172a; margin: 0; }
+      .pdf-step { page-break-after: always; break-after: page; min-height: 255mm; }
+      .pdf-step:last-child { page-break-after: auto; break-after: auto; }
+      .badge { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #3730a3; margin-bottom: 8px; }
+      h2 { font-size: 22px; line-height: 1.2; margin: 0 0 12px; color: #0b132b; }
+      .objective { margin: 0 0 10px; font-size: 14px; line-height: 1.4; }
+      ul { margin: 0 0 12px 18px; padding: 0; font-size: 13px; line-height: 1.45; }
+      li { margin: 0 0 6px; }
+      .note { margin: 8px 0 10px; padding: 8px 10px; border: 1px solid #fcd34d; background: #fffbeb; border-radius: 8px; font-size: 12px; line-height: 1.35; }
+      .shot { width: 100%; max-height: 145mm; object-fit: contain; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; }
+      .caption { margin: 6px 0 0; font-size: 11px; color: #475569; }
+    </style>
+  </head>
+  <body>
+    ${stepPages}
+    <script>window.print();</script>
+  </body>
+</html>`);
+    popup.document.close();
+  };
+
   const scrollToStep = (stepId: string) => {
     const target = document.getElementById(stepId);
     if (!target) {
@@ -321,6 +386,15 @@ export const UseCasePage = () => {
           <p className="mt-4 max-w-3xl text-slate-100/90">
             Build a real Power Automate flow using the invoice prebuilt model: PDF upload, AI extraction, Excel persistence, and optional enterprise controls.
           </p>
+          <div className="mt-5">
+            <button
+              type="button"
+              onClick={exportStepsPdf}
+              className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/20"
+            >
+              <Download size={16} /> Export PDF (1 page per step)
+            </button>
+          </div>
           <div className="mt-6 flex flex-wrap gap-3 text-sm text-slate-100">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1"><Clock3 size={14} /> 40 min live build</span>
             <span className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1"><Settings size={14} /> Intermediate level</span>

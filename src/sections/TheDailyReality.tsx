@@ -2,28 +2,28 @@ import { SectionProps } from '@/types';
 import { usePresentation } from '@/context/PresentationContext';
 import { useStepController } from '@/hooks/useStepController';
 import { StepReveal } from '@/components/common/StepReveal';
-import { AlertTriangle, ArrowRight, Clock3, FileWarning } from 'lucide-react';
+import { AlertTriangle, Clock3, FileWarning } from 'lucide-react';
 
 const painPoints = [
   {
-    title: 'Manual Extraction',
-    value: 'High effort',
-    detail: 'Finance teams still copy invoice fields manually from PDF to Excel.'
+    title: 'SAP-Generated PDFs',
+    value: 'Low reusability',
+    detail: 'Critical data exists, but in a non-structured format that is hard to reuse without manual work.'
   },
   {
-    title: 'Data Quality Risk',
-    value: 'Error-prone',
-    detail: 'Typos and inconsistent formats generate rework and approval delays.'
+    title: 'Excel as a Bridge',
+    value: 'Time consuming',
+    detail: 'Excel becomes a temporary workspace for checks, adjustments and controls, adding manual effort and variance.'
   },
   {
-    title: 'Slow Handoff',
-    value: 'Low velocity',
-    detail: 'Without structured output, SAP preparation is slow and hard to scale.'
+    title: 'Back to SAP',
+    value: 'Repetitive steps',
+    detail: 'Validated data often needs to be re-entered or uploaded into SAP, repeating similar actions cycle after cycle.'
   }
 ];
 
 export const TheDailyReality = ({ resetSignal }: SectionProps) => {
-  const { stepSignal, setIsFirstStep, setIsLastStep, goToNext } = usePresentation();
+  const { stepSignal, setIsFirstStep, setIsLastStep } = usePresentation();
 
   const stepController = useStepController({
     totalSteps: 3,
@@ -40,9 +40,9 @@ export const TheDailyReality = ({ resetSignal }: SectionProps) => {
       <div className="mx-auto flex h-full w-full max-w-6xl flex-col justify-center">
         <StepReveal step={0} isVisible={stepController.isStepVisible(0)} direction="down">
           <div className="mb-10 text-center">
-            <h1 className="font-amadeus text-5xl font-bold text-slate-900 dark:text-white">The Finance Reality</h1>
+            <h1 className="font-amadeus text-5xl font-bold text-slate-900 dark:text-white">Finance Automation Is Not Optional Anymore</h1>
             <p className="mx-auto mt-4 max-w-3xl text-lg text-slate-600 dark:text-slate-300">
-              Many invoice processes still start with unstructured PDFs and end with manual copy/paste. This is where time is lost and errors enter the process.
+              A single finance team can waste hundreds of hours per year moving data between PDFs, Excel and SAP.
             </p>
           </div>
         </StepReveal>
@@ -64,14 +64,8 @@ export const TheDailyReality = ({ resetSignal }: SectionProps) => {
 
         <StepReveal step={2} isVisible={stepController.isStepVisible(2)} direction="fade">
           <div className="mt-10 rounded-2xl bg-gradient-to-r from-indigo-700 to-violet-700 p-6 text-center text-white shadow-lg">
-            <p className="font-amadeus text-xl">The goal is simple: extract once, structure once, reuse everywhere.</p>
-            <button
-              onClick={goToNext}
-              type="button"
-              className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/20 px-5 py-2 text-sm font-semibold hover:bg-white/30"
-            >
-              Move to the solution approach <ArrowRight size={14} />
-            </button>
+            <p className="font-amadeus text-xl">The challenge:</p>
+            <p className="mt-2 text-base font-medium text-indigo-100">Make SAP output reusable. Remove Excel friction. Automate the loop.</p>
           </div>
         </StepReveal>
       </div>

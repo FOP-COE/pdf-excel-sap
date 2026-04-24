@@ -19,10 +19,10 @@ export const Footer = () => (
       </div>
       <div className="flex items-center gap-3">
         <a
-          href="mailto:training@example.com"
+          href="mailto:fop-coe@amadeus.com"
           className="flex items-center gap-1 hover:text-brand-500"
         >
-          <Mail size={10} /> training@example.com
+          <Mail size={10} /> fop-coe@amadeus.com
         </a>
         <a href="#" className="flex items-center gap-1 hover:text-brand-500">
           <Share2 size={10} /> Resource Hub

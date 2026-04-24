@@ -3,18 +3,18 @@ import { usePresentation } from '@/context/PresentationContext';
 import { useStepController } from '@/hooks/useStepController';
 import { StepReveal } from '@/components/common/StepReveal';
 import { motion } from 'framer-motion';
-import { logos } from '@/utils/assets';
 
 export const Agenda = ({ resetSignal }: SectionProps) => {
   const { stepMode, stepSignal, setIsFirstStep, setIsLastStep } = usePresentation();
 
   // Agenda items aligned with COE-5024 flow
   const agendaItems = [
-    { title: 'Business Context', subtitle: 'Why invoice processing is still manual and costly' },
-    { title: 'Target Architecture', subtitle: 'PDF -> AI Builder -> Power Automate -> Excel -> SAP handoff' },
-    { title: 'Live Build', subtitle: 'Create and test the invoice processing flow end-to-end' },
-    { title: 'Data Quality Controls', subtitle: 'Validation rules, review routing, and exception paths' },
-    { title: 'Next Steps', subtitle: 'Production readiness, dry-run SAP approach, and Q&A' }
+    { title: 'Finance Automation Is Not Optional Anymore', subtitle: 'Current friction in PDF -> Excel -> SAP operations' },
+    { title: 'Automation Momentum', subtitle: 'Why now: ecosystem readiness and reusable AI extraction' },
+    { title: 'Solution Blueprint', subtitle: 'End-to-end architecture and handoff logic' },
+    { title: 'Power Automate + AI Builder', subtitle: 'Platform fundamentals and model strategy for this session' },
+    { title: 'Setting Up for the Live Build', subtitle: 'SAP enrichment pattern and safe implementation boundaries' },
+    { title: 'Live Use Case + Q&A', subtitle: 'Build, test, validate, and close with next actions' }
   ];
 
   // Step controller: 1 (título) + 5 (items) = 6 steps
@@ -62,15 +62,6 @@ export const Agenda = ({ resetSignal }: SectionProps) => {
             />
           ))}
         </div>
-      </div>
-
-      {/* COE branding top left */}
-      <div className="absolute left-6 top-6 z-10">
-        <img
-          src={logos.coeWhite}
-          alt="Center of Excellence"
-          className="h-16 w-auto"
-        />
       </div>
 
       {/* Main content - Centered */}
